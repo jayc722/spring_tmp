@@ -38,5 +38,24 @@ public class MemberServiceImp implements MemberService {
 		}
 		
 	}
+
+	@Override
+	public MemberVO login(MemberVO member) {
+		if(member==null) return null;
+		//아이디 비번 유효성검사할필요 x -> 같은지 다른지만 비교하면 됨
+		
+		MemberVO user = memberDAO.selectMember(member.getMe_id());	//널체크 굳이 안하고 넘겨도 됨(어차피 아이디랑 일치 안해서 뱉어짐)
+		
+		if(user == null) {	//아이디가 다른 경우의 처리
+			return null;
+		}
+		
+		if(passwordEncoder.matches(member.getMe_pw(), user.getMe_pw())) {	//비밀번호가 다른 경우의 처리	->순서 바뀌면 안됨. 왼쪽이 암호화 안된 문자열 오른쪽이 암호화 된 문자열.
+			return null;
+		}
+		
+		return user;
+	}
+		
 }
 
