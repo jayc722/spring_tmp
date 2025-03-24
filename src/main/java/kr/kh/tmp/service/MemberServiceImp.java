@@ -27,7 +27,16 @@ public class MemberServiceImp implements MemberService {
 		//비번 암호화
 		String encPw = passwordEncoder.encode(member.getMe_pw());
 		member.setMe_pw(encPw);
-		return memberDAO.insertMember(member);
+		
+		try {
+			
+			return memberDAO.insertMember(member);
+			
+		}catch(Exception e){	//가입된 아이디로 가입한 경우
+			e.printStackTrace();		// 에러문구 뜨는게 거술리면 주석처리
+			return false;
+		}
+		
 	}
 }
 
