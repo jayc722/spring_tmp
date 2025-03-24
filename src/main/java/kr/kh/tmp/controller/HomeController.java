@@ -1,5 +1,7 @@
 package kr.kh.tmp.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,8 +69,20 @@ public class HomeController {
 		}
 
 		//System.out.println(user);
-		//return "/member/signup";
+
 		return "message"; //두번째 방식 사용
 	}
 
+	
+	@GetMapping("/logout")
+	public String logout(Model model, HttpSession session) {		//->로그아웃은 간단하게 세션의 회원정보 지우는 것만으로 끝
+		
+		session.removeAttribute("user");			// 로그인인터셉터에서 post매퍼랑 안 맞춰도 된다고 했던 "user"랑 이름 맞추면 됨
+		
+		model.addAttribute("url", "/");		//로그아웃 성공시 url을 메인으로
+		model.addAttribute("msg", "로그아웃 했습니다."); 
+		
+		return "message";
+	}
+	
 }
