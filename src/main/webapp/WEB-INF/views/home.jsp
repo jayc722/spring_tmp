@@ -10,6 +10,7 @@
 <h1>
 	Hello world!  
 </h1>
+${user}
 
 </body>
 </html>

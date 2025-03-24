@@ -60,12 +60,13 @@ public class HomeController {
 		if(user != null) {
 			model.addAttribute("url","/");
 			model.addAttribute("msg","로그인에 성공했습니다.");
+			model.addAttribute("user", user);	//여기 "유저" 명이랑 interceptor "유저"랑 일치시켜야 받을수있음.
 		}else {			
 			model.addAttribute("url","/login?id=" + member.getMe_id());	
 			model.addAttribute("msg","로그인에 실패했습니다.");
 		}
 
-		System.out.println(user);
+		//System.out.println(user);
 		//return "/member/signup";
 		return "message"; //두번째 방식 사용
 	}
