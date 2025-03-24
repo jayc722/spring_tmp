@@ -4,4 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.tmp.dao.MemberDAO">
   
+  <insert id="insertMapper">
+  	insert into member(me_id, me_pw, me_email)
+	values(#{member.me_id}, #{member.me_pw}, #{member.me_email})
+  </insert>
 </mapper>

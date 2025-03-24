@@ -35,7 +35,13 @@ public class HomeController {
 	}
 	@PostMapping("/signup")
 	public String signupPost(MemberVO member) {
-		System.out.println(member);
+		if(memberService.signup(member)) {
+			
+		}else {
+			
+		}
+
+		
 		return "/member/signup";
 	}
 	
