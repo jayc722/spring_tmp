@@ -29,8 +29,8 @@ public class HomeController {
 	}
 	
 	@GetMapping("/signup")
-	public String signup() {
-		
+	public String signup(Model model, String id) {
+		model.addAttribute("id", id);
 		return "/member/signup";
 	}
 	@PostMapping("/signup")
@@ -38,8 +38,8 @@ public class HomeController {
 		if(memberService.signup(member)) {
 			model.addAttribute("url","/");
 			model.addAttribute("msg","회원 가입에 성공했습니다.");
-		}else {
-			model.addAttribute("url","/signup");
+		}else {			//아이디 중복검사 넣으면 회원가입 실패 자체는 없어야 하지만 아직은 구현 안했기 때문에
+			model.addAttribute("url","/signup?id=" + member.getMe_id());	// 입력한 아이디 그대로 넣어줌
 			model.addAttribute("msg","회원 가입에 실패했습니다.");
 		}
 
