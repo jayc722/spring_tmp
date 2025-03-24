@@ -65,7 +65,7 @@ public class HomeController {
 			model.addAttribute("msg","로그인에 실패했습니다.");
 		}
 
-		
+		System.out.println(user);
 		//return "/member/signup";
 		return "message"; //두번째 방식 사용
 	}
