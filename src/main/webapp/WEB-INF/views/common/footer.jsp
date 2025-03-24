@@ -6,7 +6,8 @@
 <head>
 </head>
 <body>
-<h1>푸터</h1>
-
+	<div class="jumbotron">
+		<h1>푸터</h1>      
+	</div>
 </body>
 </html>
