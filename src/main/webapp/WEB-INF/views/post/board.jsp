@@ -44,7 +44,6 @@
 		});
 		
 		$(".update").submit(function(e){
-			$("#insert").submit(function(e){
 				//게시판 이름 앞뒤로 공백을 제거했을 때 빈 문자열과 같으면 false를 리턴(일림 문구 출력)
 				let obj = $(this).find("[name=bo_name]");		//위에서 이 부분만 수정
 				let bo_name = obj.val().trim();
@@ -55,10 +54,11 @@
 				}
 				obj.val(bo_name);
 			});
-			$(".del").click(function(e){
-				if(!confirm("삭제하시겠습니까?")){
-					e.preventDefault();
-				}
+		
+		$(".del").click(function(e){
+			if(!confirm("삭제하시겠습니까?")){
+				e.preventDefault();
+			}
 			});
 	</script>
 
