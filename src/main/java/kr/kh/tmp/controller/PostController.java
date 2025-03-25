@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kr.kh.tmp.model.vo.BoardVO;
 import kr.kh.tmp.model.vo.PostVO;
 import kr.kh.tmp.service.PostService;
 
@@ -23,7 +24,11 @@ public class PostController {
 		bo_num = bo_num == null ? 0 : bo_num;
 		List<PostVO> list = postService.getPostList(bo_num);
 		
+		List<BoardVO> boardList = postService.getBoardList();
+		
 		model.addAttribute("list",list);
+		model.addAttribute("boardList",boardList);
+		model.addAttribute("bo_num",bo_num);
 		return "/post/list";
 	}
 	

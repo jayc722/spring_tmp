@@ -7,8 +7,17 @@
 	
 </head>
 <body>
+	<div class="board-list mb-3 mt-3">
+		
+		<a href="<c:url value="/post/list"/>" class="btn btn<c:if test="${bo_num ne 0}">-outline</c:if>-success">전체</a>
+		<c:forEach items="${boardList}" var="board">
+			<a href="<c:url value="/post/list?bo_num=${board.bo_num}"/>" class = "btn btn<c:if test="${bo_num ne board.bo_num}">-outline</c:if>-primary">
+				${board.bo_name}
+			</a>
+		</c:forEach>
+	</div>
+	
 	<h1>게시글 목록</h1>
-		    ${list }
 	 <table class="table table-hover">
 		    <thead>
 		      <tr>
@@ -35,6 +44,11 @@
 		    	    <td>${post.po_up}/${post.po_down}</td>
 			      </tr>
 			    </c:forEach>
+			    <c:if test="${list.size() eq 0 }">
+			    	<tr>
+			    		<td colspan="6" class="text-center">등록된 게시글이 없습니다.</td>
+			    	</tr>
+			    </c:if>
 		   </tbody>
 	  </table>
 
