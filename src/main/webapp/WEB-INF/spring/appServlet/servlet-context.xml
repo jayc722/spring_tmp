@@ -33,8 +33,15 @@
 	
 	<!-- 인터셉터 등록 -->
 	<beans:bean id="loginInterceptor" class="kr.kh.tmp.interceptor.LoginInterceptor"/>	
+	<beans:bean id="adminInterceptor" class="kr.kh.tmp.interceptor.AdminInterceptor"/>	
 	
 	<!-- 인터셉터 맵핑 -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/admin/**"/>
+			<beans:ref bean="adminInterceptor"/>
+		</interceptor>
+	</interceptors>
 	<interceptors>
 		<interceptor>
 			<mapping path="/login"/>
