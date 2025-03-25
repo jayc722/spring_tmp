@@ -56,7 +56,15 @@ public class PostServiceImp implements PostService {
 
 	@Override
 	public boolean insertPost(PostVO post, MemberVO user) {
-		// TODO Auto-generated method stub
-		return false;
+
+		if(user == null || post == null) {
+			return false;
+		}
+		
+		post.setPo_me_id(user.getMe_id());
+		
+		boolean res = postDao.insertPost(post);	//여기 boolean으로 하는 이유는 추후 첨부파일 등록 하려고
+
+		return res;
 	}
 }

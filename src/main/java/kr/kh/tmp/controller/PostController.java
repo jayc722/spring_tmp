@@ -49,6 +49,7 @@ public class PostController {
 	
 	@PostMapping("/insert")
 	public String insertPost(Model model, PostVO post, HttpSession session) {
+		//System.out.println(post);
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		if(postService.insertPost(post,user)) {
 			model.addAttribute("url", "/post/list");
