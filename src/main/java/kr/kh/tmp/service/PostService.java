@@ -19,4 +19,12 @@ public interface PostService {
 	List<PostVO> getPostList(Integer bo_num);
 
 	boolean insertPost(PostVO post, MemberVO user);
+
+	void updateView(int po_num);
+
+	PostVO getPost(int po_num);
+
+	boolean deletePost(int po_num, MemberVO user);
+
+	boolean updatePost(PostVO post, MemberVO user);
 }

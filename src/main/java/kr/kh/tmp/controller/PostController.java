@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -61,5 +62,66 @@ public class PostController {
 		}
 		return "message";
 	}
+	
+	@GetMapping("detail/{po_num}")
+	public String detail(Model model, @PathVariable("po_num")int po_num) {	//url에서 슬래시 사이에 있는 값을 받아오는 어노테이션 ?로 받아오거나 이거 쓰거나
+		//조회수 증가
+		postService.updateView(po_num);
+		//게시글을 가져와서 화면에 전달
+		PostVO post = postService.getPost(po_num);
+		
+		model.addAttribute("post", post);
+		
+		return "/post/detail";
+	}
 
+	
+	@GetMapping("delete/{po_num}")
+	public String delete(Model model, @PathVariable("po_num")int po_num, HttpSession session) {	
+
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		if(postService.deletePost(po_num,user)) {
+			model.addAttribute("msg", "게시글을 삭제했습니다.");
+			model.addAttribute("url", "/post/list");
+		}else {
+			model.addAttribute("msg", "게시글을 삭제하지 못했습니다.");
+			model.addAttribute("url", "/post/detail/" + po_num);
+	
+		}
+		
+		return "/post/detail";
+	}
+	
+	
+	@GetMapping("update/{po_num}")
+	public String update(Model model, @PathVariable("po_num")int po_num, HttpSession session) {	
+
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		PostVO post = postService.getPost(po_num);
+		if(post == null || user == null || !post.getPo_me_id().equals(user.getMe_id())) {
+			model.addAttribute("url", "/post/detail/" + po_num);
+			model.addAttribute("msg", "작성자가 아니거나 없는 게시글입니다.");
+			return "message";
+		}
+		
+		model.addAttribute("post", post);
+		return "/post/update";
+	}
+
+	
+	@PostMapping("/update")
+	public String updatePost(Model model, PostVO post, HttpSession session) {
+
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		if(postService.updatePost(post,user)) {
+			model.addAttribute("msg", "게시글을 수정했습니다.");
+		}else {
+			model.addAttribute("msg", "게시글을 수정하지 못했습니다.");
+	
+		}
+		model.addAttribute("url", "/post/detail/" + post.getPo_num());
+		return "message";
+	}
+	
 }

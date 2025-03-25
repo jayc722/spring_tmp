@@ -50,7 +50,7 @@ public class MemberServiceImp implements MemberService {
 			return null;
 		}
 		
-		if(passwordEncoder.matches(member.getMe_pw(), user.getMe_pw())) {	//비밀번호가 다른 경우의 처리	->순서 바뀌면 안됨. 왼쪽이 암호화 안된 문자열 오른쪽이 암호화 된 문자열.
+		if(!passwordEncoder.matches(member.getMe_pw(), user.getMe_pw())) {	//비밀번호가 다른 경우의 처리	->순서 바뀌면 안됨. 왼쪽이 암호화 안된 문자열 오른쪽이 암호화 된 문자열.
 			return null;
 		}
 		
