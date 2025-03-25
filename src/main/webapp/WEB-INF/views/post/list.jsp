@@ -51,6 +51,10 @@
 			    </c:if>
 		   </tbody>
 	  </table>
+	  <div class="clearfix mb-3"><!-- 높이 잡히게 하기 위해(푸터랑 안 겹치게 하기 위해) clearfix -->
+	  	<a href="<c:url value="/post/insert?bo_num=${bo_num}"/>" class="btn btn-outline float-right">게시글 등록</a>
+	  	<!-- 게시글 등록할때 일일히 선택 안해도 되게 보고있는 게시판 번호가 들어가게 -->
+	  </div>
 
 
 </body>

@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import kr.kh.tmp.model.vo.BoardVO;
-import kr.kh.tmp.model.vo.MemberVO;
 import kr.kh.tmp.model.vo.PostVO;
 
 public interface PostDAO {
