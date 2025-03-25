@@ -61,7 +61,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/board/delete")	
-	public String boardUpdate(Model model, int num) {	
+	public String boardDelete(Model model, int num) {	
 		
 		if(postService.deleteBoard(num)) {
 			model.addAttribute("msg", "게시판을 삭제했습니다.");
