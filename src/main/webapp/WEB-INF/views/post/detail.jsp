@@ -15,7 +15,7 @@
 	<h1>게시글 상세</h1>
 		<div class="form-group">
 			<label>게시판</label>
-			<div class ="form-control">${post.po_bo_num}</div>
+			<div class="form-control">${post.po_bo_name}</div>
 		</div>
 		<div class="form-group">
 			<label>제목</label>
@@ -43,8 +43,8 @@
 			<a href="<c:url value = "/post/list?bo_num=${post.po_bo_num}"/>" class="btn btn-outline-success">목록으로</a>
 			<div>
 				<c:if test="${post.po_me_id eq user.me_id}"><!-- 작성자에게만 보이도록 -->
-					<a href="<c:url value = "/post/update/${post.po_num}"/>" class="btn btn-outline-warning">수정</a>
-					<a href="<c:url value = "/post/delete/${post.po_num}"/>" class="btn btn-outline-danger">삭제</a>
+				<a href="<c:url value="/post/update/${post.po_num}"/>" class="btn btn-outline-warning">수정</a>
+				<a href="<c:url value="/post/delete/${post.po_num}"/>" class="btn btn-outline-danger">삭제</a>
 				</c:if>
 			</div>
 		</div>
