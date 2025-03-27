@@ -15,6 +15,9 @@
 		  <label for="id">아이디:</label>
 		  <input type="text" class="form-control" id="id" name="me_id" value="${id}">
 		</div>
+		<button type="button" class="btn btn-outline-success col-12" id="check">아이디 중복 확인</button>
+		<!-- 버튼 타입은 기본이 submit이라 타입 안 바꾸면 회원가입 넘어가져버림 -->
+		
 		<div class="form-group">
 		  <label for="pw">비밀번호:</label>
 		  <input type="password" class="form-control" id="pw" name="me_pw">
