@@ -39,8 +39,13 @@
 	</form>
 	<script type="text/javascript">
 		$("#check").click(function(e){	//j쿼리 방식
-			//alert(1);
-
+			// 정규표현식에 맞지 않으면 알림창 리턴 후 종료
+			let id = $("#id").val();
+			if(!/^[a-zA-Z0-9]{3,13}$/.test(id)){
+				alert("아이디는 영문, 숫자만 가능하며, 3~13자입니다.");
+				return;
+			}
+			
 			if(checkId()){
 				alert("사용 가능한 아이디입니다.");
 			}else{
@@ -50,7 +55,6 @@
 		function checkId(){			// 유효성검사에도 필요한 기능이기 때문에 외부에 함수로 만들어서 나중에 재사용 가능하게
 			// 입력한 아이디를 가져옴
 			let id = $("#id").val();
-			// 정규표현식에 맞지 않으면 알림창 리턴 후 종료(차후 도입)
 			
 			let res = false;		
 			//비동기 통신으로 아이디를 전송하고, 서버에서 보낸 결과를 이용하여 처리
