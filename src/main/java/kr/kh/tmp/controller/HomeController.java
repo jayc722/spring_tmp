@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.kh.tmp.model.vo.MemberVO;
 import kr.kh.tmp.service.MemberService;
@@ -83,6 +85,13 @@ public class HomeController {
 		model.addAttribute("msg", "로그아웃 했습니다."); 
 		
 		return "message";
+	}
+	
+	@ResponseBody // 뷰 리졸버가 분석하지 않고 그대로 서버로 보내는 역할
+	@PostMapping("/check/id")
+	//리턴타입 꼭 Object일 필요는 없음. List로 보내고 싶으면 List로 수정해도 상관없음 
+	public boolean checkId(@RequestParam("id") String id){
+		return memberService.checkId(id);
 	}
 	
 }
