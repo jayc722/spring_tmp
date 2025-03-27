@@ -104,6 +104,12 @@
 
 			},
 			submitHandler : function(){	//submitHandler : 유효성 검사 후 전송하기 직전 확인하고 싶을때 : return true여야 전송.
+				if(checkId()){
+					alert("사용 가능한 아이디입니다.");
+				}else{
+					alert("이미 사용중인 아이디입니다.");
+					return false;
+				}
 				return true;
 			}
 		})
