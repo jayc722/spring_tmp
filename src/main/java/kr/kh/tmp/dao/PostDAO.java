@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import kr.kh.tmp.model.vo.BoardVO;
+import kr.kh.tmp.model.vo.FileVO;
 import kr.kh.tmp.model.vo.PostVO;
 
 public interface PostDAO {
@@ -28,6 +29,8 @@ public interface PostDAO {
 	boolean deletePost(@Param("po_num")int po_num);
 
 	boolean updatePost(@Param("post")PostVO post);
+
+	void insertFile(@Param("file")FileVO fileVo);	//param은 xml에 사용할 매퍼 이름과 맞춰주면 됨
 
 	
 	

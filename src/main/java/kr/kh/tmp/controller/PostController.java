@@ -2,6 +2,7 @@ package kr.kh.tmp.controller;
 
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +12,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.tmp.model.vo.BoardVO;
 import kr.kh.tmp.model.vo.MemberVO;
 import kr.kh.tmp.model.vo.PostVO;
 import kr.kh.tmp.service.PostService;
+import kr.kh.tmp.utils.UploadFileUtils;
 
 @Controller
 @RequestMapping("/post")
@@ -23,6 +27,8 @@ public class PostController {
 	
 	@Autowired
 	private PostService postService;
+	
+
 	
 	@GetMapping("/list")
 	public String list(Model model, Integer bo_num) {
@@ -49,10 +55,10 @@ public class PostController {
 	}
 	
 	@PostMapping("/insert")
-	public String insertPost(Model model, PostVO post, HttpSession session) {
+	public String insertPost(Model model, PostVO post, HttpSession session, MultipartFile[] fileList) {	//여기 multipartfile 변수 이름은 jsp의 첨부파일 name속성이랑 맞ㅛ
 		//System.out.println(post);
 		MemberVO user = (MemberVO)session.getAttribute("user");
-		if(postService.insertPost(post,user)) {
+		if(postService.insertPost(post,user, fileList)) {
 			model.addAttribute("url", "/post/list");
 			model.addAttribute("msg", "게시글을 등록했습니다.");
 		}else {

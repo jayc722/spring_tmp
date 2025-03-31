@@ -12,7 +12,7 @@
 </head>
 <body>
 
-	<form action="<c:url value="/post/insert"/>" method="post">
+	<form action="<c:url value="/post/insert"/>" method="post" enctype="multipart/form-data">
 		<h1>게시글 등록</h1>
 		<div class="form-group">
 		  <label for="title">제목:</label>
@@ -32,9 +32,17 @@
 			<label for="content">내용:</label>
 			<textarea class="form-control" id="content" name="po_content"></textarea>
 		</div>
-
+			
+		<div class="form-group">
+			<label>첨부파일(최대 10mb)</label>
+			<input type="file" class="form-control" name="fileList"/><!-- 여기 name은 아무거나 상관없는데 files만 아니면 됨(썸머노트랑 겹침) -->
+			<input type="file" class="form-control" name="fileList"/>
+			<input type="file" class="form-control" name="fileList"/>
+		</div>
+		
 		<button type="submit" class="btn btn-outline-success col-12 mb-3">게시글 등록</button>
 	
+		
 	</form>
 	 <script>
       $('[name=po_content]').summernote({
