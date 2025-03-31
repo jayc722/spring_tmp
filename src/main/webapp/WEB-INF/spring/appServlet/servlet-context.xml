@@ -10,7 +10,9 @@
 	<annotation-driven />
 
 	<resources mapping="/resources/**" location="/resources/" /><!-- url/하면 이 폴더 기준으로 찾아옴.(c:url할때) -->
-
+	<resources mapping="/download/**" location="file:///D:/uploads/,file:///D:/uploads2/" />
+	
+	
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />

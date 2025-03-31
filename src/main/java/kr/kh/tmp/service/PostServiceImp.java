@@ -1,14 +1,11 @@
 package kr.kh.tmp.service;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.tmp.dao.PostDAO;
@@ -117,11 +114,25 @@ public class PostServiceImp implements PostService {
 			return false;
 		}
 		// 작성자 체크
-		checkWriter(po_num, user);
+		if(!checkWriter(po_num, user)) return false;
+		
+		List<FileVO> files = postDao.selectFileList(po_num); //제거가 실제로 지우는게 아니기 때문에 첨부파일 제거를 제거 뒤에 해도 됨
+		
+		if(!postDao.deletePost(po_num)) return false;	//제거 실행 후 실패시 반환
 		
 		// 첨부파일(구현 시) 제거
+		//System.out.println(files);
+		if(files.isEmpty() || files == null) return true;
+		
+		for(FileVO file : files) {
+			if(file == null) continue;
+			//System.out.println(file);
+			UploadFileUtils.deleteFile(uploadPath, file.getFi_name());
+			postDao.deleteFile(file.getFi_num());
+		}
+		
+		return true;
 
-		return postDao.deletePost(po_num);
 		
 		
 	}
@@ -140,7 +151,7 @@ public class PostServiceImp implements PostService {
 	}
 
 	@Override
-	public boolean updatePost(PostVO post, MemberVO user) {
+	public boolean updatePost(PostVO post, MemberVO user, MultipartFile[] fileList, int[] delNums) {
 		if(user==null || post==null) return false;
 		//작성자 체크
 		if(!checkWriter(post.getPo_num(), user)) {
@@ -148,8 +159,31 @@ public class PostServiceImp implements PostService {
 		}
 		boolean res = postDao.updatePost(post);
 	
+		if(!res || fileList == null) return res;
+		
+		for(MultipartFile file : fileList) uploadFile(file,post.getPo_num());
+		
+		//삭제할 첨부파일 꺼내서 제거
+		if(delNums == null || delNums.length == 0) return res;
+		
+		for(int fi_num : delNums) {
+			FileVO fileVO = postDao.selectFile(fi_num);
+			if(post.getPo_num() != fileVO.getFi_po_num()) continue;	//화면에서 보낸건 개발자도구로 얼마든지 변조 가능하니 항상 체크해야 함. 
+			//deleteFile(fileVO);
+			if(fileVO == null) continue;
+			UploadFileUtils.deleteFile(uploadPath, fileVO.getFi_name());
+			postDao.deleteFile(fileVO.getFi_num());
+		}
 		return res;
 	}
+
+	@Override
+	public List<FileVO> getFileList(int po_num) {
+		
+		return postDao.selectFileList(po_num);
+	}
+	
+	
 
 	
 }

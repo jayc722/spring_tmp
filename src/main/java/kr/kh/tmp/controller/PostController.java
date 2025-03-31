@@ -2,7 +2,6 @@ package kr.kh.tmp.controller;
 
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.tmp.model.vo.BoardVO;
+import kr.kh.tmp.model.vo.FileVO;
 import kr.kh.tmp.model.vo.MemberVO;
 import kr.kh.tmp.model.vo.PostVO;
 import kr.kh.tmp.service.PostService;
-import kr.kh.tmp.utils.UploadFileUtils;
 
 @Controller
 @RequestMapping("/post")
@@ -75,8 +73,11 @@ public class PostController {
 		postService.updateView(po_num);
 		//게시글을 가져와서 화면에 전달
 		PostVO post = postService.getPost(po_num);
+		List<FileVO> fileList = postService.getFileList(po_num);
+		
 		
 		model.addAttribute("post", post);
+		model.addAttribute("file", fileList);
 		
 		return "/post/detail";
 	}
@@ -109,17 +110,27 @@ public class PostController {
 			return "message";
 		}
 		
+		List<BoardVO> board = postService.getBoardList();
+		List<FileVO> fileList = postService.getFileList(po_num); 
+		
+		
 		model.addAttribute("post", post);
+		model.addAttribute("board", board);
+		model.addAttribute("file", fileList);
 		return "/post/update";
 	}
 	
 
 	
 	@PostMapping("/update")
-	public String updatePost(Model model, PostVO post, HttpSession session) {
+	public String updatePost(Model model, PostVO post, HttpSession session, MultipartFile[] fileList, int [] delNums) {
+		
+		//for(MultipartFile file : fileList)System.out.println(file.getOriginalFilename());
+		//for(int num : delNums)System.out.println(num);
+		//항상 체크하는 버릇!
 		
 		MemberVO user = (MemberVO)session.getAttribute("user");
-		if(postService.updatePost(post, user)) {
+		if(postService.updatePost(post, user, fileList, delNums)) {
 			model.addAttribute("msg", "게시글을 수정했습니다.");
 		}else {
 			model.addAttribute("msg", "게시글을 수정하지 못했습니다.");

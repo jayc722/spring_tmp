@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
+@NoArgsConstructor// 생성자 만들었기때문에 기본생성자 추가해야됨
 public class FileVO {
 	private int fi_num;
 	private String fi_ori_name;

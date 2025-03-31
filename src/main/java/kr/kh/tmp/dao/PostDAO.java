@@ -32,6 +32,14 @@ public interface PostDAO {
 
 	void insertFile(@Param("file")FileVO fileVo);	//param은 xml에 사용할 매퍼 이름과 맞춰주면 됨
 
+	List<FileVO> selectFileList(@Param("po_num")int po_num);
+
+	void deleteFile(@Param("fi_num")int fi_num);
+
+	FileVO selectFile(@Param("fi_num")int fi_num);
+	
+	
+
 	
 	
 }
