@@ -11,9 +11,9 @@
 <body>
 	<div class="board-list mb-3 mt-3">
 		
-		<a href="<c:url value="/post/list"/>" class="btn btn<c:if test="${bo_num ne 0}">-outline</c:if>-success">전체</a>
+		<a href="<c:url value="/post/list"/>" class="btn btn<c:if test="${pageMaker.cri.bo_num ne 0}">-outline</c:if>-success">전체</a>
 		<c:forEach items="${boardList}" var="board">
-			<a href="<c:url value="/post/list?bo_num=${board.bo_num}"/>" class = "btn btn<c:if test="${bo_num ne board.bo_num}">-outline</c:if>-primary">
+			<a href="<c:url value="/post/list?bo_num=${board.bo_num}"/>" class = "btn btn<c:if test="${pageMaker.cri.bo_num ne board.bo_num}">-outline</c:if>-primary">
 				${board.bo_name}
 			</a>
 		</c:forEach>
@@ -53,6 +53,44 @@
 			    </c:if>
 		   </tbody>
 	  </table>
+	  <ul class="pagination justify-content-center">
+			<c:if test="${!pageMaker.prev}">
+				<c:set var="prev" value="disabled"/><!-- 이전버튼 비활성화 시키기(c:set 변수선언) -->
+			</c:if>
+
+			<c:url var="url" value="/post/list">
+				<c:param name="bo_num" value="${pageMaker.cri.bo_num}"/>
+				<c:param name="page" value="${pageMaker.startPage - 1}"/>
+			</c:url>
+
+			<li class="page-item ${prev}">
+				<a class="page-link" href="${url};" >이전</a>
+			</li>
+				
+			<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="page">
+				<c:set var="active" value=""/>
+				<c:if test="${pageMaker.cri.page == page}">
+					<c:set var="active" value="active"/>
+				</c:if>
+				<c:url var="url" value="/post/list">
+					<c:param name="bo_num" value="${pageMaker.cri.bo_num}"/>
+					<c:param name="page" value="${page}"/>
+				</c:url>
+				<li class="page-item ${active}">
+					<a class="page-link" href="${url};">${page}</a>
+				</li>
+			</c:forEach>	
+			<c:if test="${!pageMaker.next}">
+				<c:set var="next" value="disabled"/><!-- 다음버튼 비활성화 시키기 -->
+			</c:if>	
+			<c:url var="url" value="/post/list">
+				<c:param name="bo_num" value="${pageMaker.cri.bo_num}"/>
+				<c:param name="page" value="${pageMaker.endPage + 1}"/>
+			</c:url>		
+			<li class="page-item ${next}">
+				<a class="page-link" href="${url}" >다음</a>
+			</li>
+		</ul>
 	  <div class="clearfix mb-3"><!-- 높이 잡히게 하기 위해(푸터랑 안 겹치게 하기 위해) clearfix -->
 	  	<a href="<c:url value="/post/insert?bo_num=${bo_num}"/>" class="btn btn-outline float-right">게시글 등록</a>
 	  	<!-- 게시글 등록할때 일일히 선택 안해도 되게 보고있는 게시판 번호가 들어가게 -->

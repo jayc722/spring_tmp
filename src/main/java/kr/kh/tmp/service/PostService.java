@@ -8,8 +8,8 @@ import kr.kh.tmp.model.vo.BoardVO;
 import kr.kh.tmp.model.vo.FileVO;
 import kr.kh.tmp.model.vo.MemberVO;
 import kr.kh.tmp.model.vo.PostVO;
-
-public interface PostService {
+import kr.kh.tmp.pagination.Criteria;
+import kr.kh.tmp.pagination.PageMaker;public interface PostService {
 
 	boolean insertBoard(String name);
 
@@ -19,7 +19,7 @@ public interface PostService {
 
 	boolean deleteBoard(int num);
 
-	List<PostVO> getPostList(Integer bo_num);
+	//List<PostVO> getPostList(Integer bo_num);
 
 	boolean insertPost(PostVO post, MemberVO user, MultipartFile[] fileList);
 
@@ -32,4 +32,8 @@ public interface PostService {
 	boolean updatePost(PostVO post, MemberVO user, MultipartFile[] fileList, int[] delNums);
 
 	List<FileVO> getFileList(int po_num);
+
+	List<PostVO> getPostList(Criteria cri);		// PostCriteria -> Criteria 변경. 안바꿔도 되는데 다형성으로 사용 가능해지니
+
+	PageMaker getPageMaker(Criteria cri);
 }
