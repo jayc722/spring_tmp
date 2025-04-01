@@ -19,7 +19,7 @@ public interface PostDAO {
 
 	boolean deleteBoard(@Param("bo_num")int num);
 
-	List<PostVO> selectPostList(@Param("Criteria")Criteria cri);
+	List<PostVO> selectPostList(@Param("criteria")Criteria cri);
 
 	boolean insertPost(@Param("post")PostVO post);
 
@@ -39,7 +39,7 @@ public interface PostDAO {
 
 	FileVO selectFile(@Param("fi_num")int fi_num);
 
-	int selectPostCount(@Param("Criteria")Criteria cri);
+	int selectPostCount(@Param("criteria")Criteria cri);
 	
 	
 
