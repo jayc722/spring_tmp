@@ -3,5 +3,16 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.tmp.dao.CommentDAO">
-  
+  <insert id="insertComment">
+  	insert into comment(co_po_num, co_me_id, co_content, co_num, co_ori_num)
+  	select #{comment.co_po_num},#{comment.co_me_id},#{comment.co_content}, 
+  		ifnull(max(co_num), 0) + 1, 
+  		<if test="comment.co_ori_num == 0">
+  			ifnull(max(co_num), 0) + 1
+  		</if>
+  		<if test="comment.co_ori_num != 0">
+  			#{comment.co_ori_num}
+  		</if>
+  		from comment
+  </insert>
 </mapper>

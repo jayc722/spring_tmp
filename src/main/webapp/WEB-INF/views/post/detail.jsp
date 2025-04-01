@@ -83,8 +83,10 @@
 					page : 1,				//최소 페이지 1페이지
 					po_num : ${post.po_num}	//input hidden에다 해도 되긴함
 				}
-			
+				
+				var $obj = $(this).find("[name=content]");
 				var co_content = $(this).find("[name=content]").val().trim();
+			
 				
 				//console.log(co_content);
 				
@@ -109,6 +111,14 @@
 					//dataType : "json",								//object로 받으니 지움 
 					success : function (data){
 						console.log(data);
+						//console.log(data);
+						if(data){
+							alert("댓글을 등록했습니다.");
+						}else{
+							alert("댓글을 등록하지 못했습니다.");
+						}
+						//$(this).find("[name=content]").val("");				//여기의 this는 .ajax가 됨...
+						$obj.val("");
 					}, 
 					error : function(jqXHR, textStatus, errorThrown){
 
