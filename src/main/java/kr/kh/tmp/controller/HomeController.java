@@ -1,5 +1,8 @@
 package kr.kh.tmp.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,11 +10,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.kh.tmp.model.dto.PersonDTO;
 import kr.kh.tmp.model.vo.MemberVO;
 import kr.kh.tmp.service.MemberService;
 
@@ -92,6 +97,44 @@ public class HomeController {
 	//리턴타입 꼭 Object일 필요는 없음. List로 보내고 싶으면 List로 수정해도 상관없음 
 	public boolean checkId(@RequestParam("id") String id){
 		return memberService.checkId(id);
+	}
+	
+	
+	@ResponseBody
+	@GetMapping("/ajax/sample1")
+	public Object ajaxSample1(@RequestParam String name, @RequestParam int age) { //requestParam으로 순서대로 받아옴
+		System.out.println(name + " : " + age);
+		return "home1";		//콘솔창에 home.jsp 코드가 그대로 나옴.
+		// 리턴값이 문자열이면 뷰 리졸버가 얘를 가지고 분석하는데 타일즈뷰리졸버가  <definition name="*" extends=".root"> 로 잡아와서 콘솔창에 띄우는것
+		// home이라는 문자열로 보내고 싶다면 -> responsebody 추가(home 문자열로 보냄)
+		// http://localhost:8080/tmp/ajax/sample1?name=홍길동&age=21 와 같음
+	}
+	
+	@ResponseBody
+	@PostMapping("/ajax/sample2")
+	public Object ajaxSample2(@RequestBody PersonDTO person) { 
+		System.out.println(person);			//변수가 많으면 객체로 묶어서 request body로 묶어보내는게 편함...
+		return "home2";	 
+	}
+	
+	@ResponseBody
+	@GetMapping("/ajax/sample3")
+	public Map<String, Object> ajaxSample3(@RequestParam String name, @RequestParam int age) { //requestParam으로 순서대로 받아옴
+		PersonDTO person = new PersonDTO();
+		person.setName(name);
+		person.setAge(age);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("person", person);	//"화면에서 쓸 이름" , 데이터
+		map.put("string", "안녕하세요.");
+		
+		return map;		//
+	}
+	
+	@ResponseBody
+	@GetMapping("/ajax/sample4")
+	public Object ajaxSample4(@RequestParam int bo_num) { //requestParam으로 순서대로 받아옴
+		return "redirect:/post/list?bo_num=" + bo_num;	// 이대로 하면 이 문자열 그대로만 나옴 	
 	}
 	
 }
