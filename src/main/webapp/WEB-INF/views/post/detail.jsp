@@ -58,5 +58,66 @@
 				</c:if>
 			</div>
 		</div>
+		
+		<div class="comment-container">
+			<div class="comment-wrap">
+
+			</div>
+			<form class="input-group mt-3 comment-insert-form">
+				<textarea class="form-control" name="content" placeholder="댓글 입력"></textarea>
+				<button class="btn btn-outline-success">등록</button>
+			</form>
+		</div>
+		
+		<script type="text/javascript">
+
+			var cri = {
+				page : 1,				//최소 페이지 1페이지
+				po_num : ${post.po_num}	//input hidden에다 해도 되긴함
+			}
+		
+			//$(".comment-insert-form").click(function(e){
+			$(document).on("submit", ".comment-insert-form", function(e){
+				
+				e.preventDefault();
+				//댓글 내용 입력 안한 경우 처리
+				
+				//alert(1);
+				//console.log(cri);	
+				
+				let $obj = $(this).find("[name=content]");		
+				let co_content = $obj.val().trim();
+				
+				console.log(co_content);
+				
+				
+				let obj = {
+						co_po_num : cri.po_num,
+						co_content : co_content,
+						//co_ori_num : co_ori_num,
+				}
+				//json으로 화면에서 보내서 서버에서 object로 받도록(노션의 json json에서 가져옴)
+			
+				$.ajax({
+					async : true, //비동기 : true(비동기)
+					url : '/경로', 
+					type : 'post', 
+					data : JSON.stringify(obj), 
+					contentType : "application/json; charset=utf-8",	//json으로 받으니 필요
+					//dataType : "json",								//object로 받으니 지움 
+					success : function (data){
+						console.log(data);
+					}, 
+					error : function(jqXHR, textStatus, errorThrown){
+
+					}
+				});
+			
+			});
+			
+		
+		
+		
+		</script>
 </body>
 </html>
