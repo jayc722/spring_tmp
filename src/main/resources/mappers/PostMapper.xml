@@ -38,11 +38,31 @@
 		from post
 		join board on po_bo_num = bo_num 
 		where po_del="N"
-		<if test="cri.bo_num != 0">
-			and po_bo_num = #{cri.bo_num}
+		<if test="criteria.bo_num != 0">
+			and po_bo_num = #{criteria.bo_num}
 		</if>
+		<choose>
+			<when test="criteria.type == 'all'">
+				and (po_title like concat('%', #{criteria.search}, '%')
+					or po_content like concat('%', #{criteria.search}, '%')
+					or po_me_id = #{criteria.search}
+				)
+			</when>
+			<when test="criteria.type == 'title'">
+				and (po_title like concat('%', #{criteria.search}, '%')
+				)
+			</when>
+			<when test="criteria.type == 'content'">
+				and (po_title like concat('%', #{criteria.search}, '%')
+					or po_content like concat('%', #{criteria.search}, '%')
+				)
+			</when>
+			<when test="criteria.type == 'user'">
+				and po_me_id = #{criteria.search}
+			</when>
+		</choose>
 		order by po_num desc
-		limit
+		limit #{criteria.pageStart},#{criteria.perPageNum}
 	</select>
 	
 	<insert id="insertPost" useGeneratedKeys="true" keyProperty="post.po_num"><!-- 생성된 게시글의 기본키를 가져오는 키 -->
@@ -95,6 +115,26 @@
 		<if test="criteria.bo_num != 0">
 			and po_bo_num = #{criteria.bo_num}
 		</if>
+		<choose>
+			<when test="criteria.type == 'all'">
+				and (po_title like concat('%', #{criteria.search}, '%')
+					or po_content like concat('%', #{criteria.search}, '%')
+					or po_me_id = #{criteria.search}
+				)
+			</when>
+			<when test="criteria.type == 'title'">
+				and (po_title like concat('%', #{criteria.search}, '%')
+				)
+			</when>
+			<when test="criteria.type == 'content'">
+				and (po_title like concat('%', #{criteria.search}, '%')
+					or po_content like concat('%', #{criteria.search}, '%')
+				)
+			</when>
+			<when test="criteria.type == 'user'">
+				and po_me_id = #{criteria.search}
+			</when>
+		</choose>
 	</select>
 	
 	
