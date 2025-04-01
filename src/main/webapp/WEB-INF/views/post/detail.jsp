@@ -71,11 +71,6 @@
 		
 		<script type="text/javascript">
 
-			var cri = {
-				page : 1,				//최소 페이지 1페이지
-				po_num : ${post.po_num}	//input hidden에다 해도 되긴함
-			}
-		
 			//$(".comment-insert-form").click(function(e){
 			$(document).on("submit", ".comment-insert-form", function(e){
 				
@@ -84,11 +79,14 @@
 				
 				//alert(1);
 				//console.log(cri);	
+				var cri = {
+					page : 1,				//최소 페이지 1페이지
+					po_num : ${post.po_num}	//input hidden에다 해도 되긴함
+				}
+			
+				var co_content = $(this).find("[name=content]").val().trim();
 				
-				let $obj = $(this).find("[name=content]");		
-				let co_content = $obj.val().trim();
-				
-				console.log(co_content);
+				//console.log(co_content);
 				
 				
 				let obj = {
@@ -100,10 +98,14 @@
 			
 				$.ajax({
 					async : true, //비동기 : true(비동기)
-					url : '/경로', 
-					type : 'post', 
-					data : JSON.stringify(obj), 
-					contentType : "application/json; charset=utf-8",	//json으로 받으니 필요
+					url : '<c:url value="/comment/insert"/>',					//ajax 예제 참고 
+					type : 'post', 													//json으로 보내는건 무조건 postmapping 해야함
+					//data : JSON.stringify(obj), 
+					data : JSON.stringify({
+						co_po_num : cri.po_num,
+						co_content : co_content		
+					}), 
+					contentType : "application/json; charset=utf-8",	//json으로 보내니 필요
 					//dataType : "json",								//object로 받으니 지움 
 					success : function (data){
 						console.log(data);
