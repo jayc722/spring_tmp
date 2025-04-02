@@ -84,7 +84,7 @@
 			$(this).closest('.comment-list').find('.reply').remove();
 			const replyHtml = `
 				<div class="reply">
-					<form class="input-group mt-3 comment-insert-form" data-num="${co_ori_num}">
+					<form class="input-group mt-3 comment-insert-form" data-num="\${co_ori_num}">
 						<textarea class="form-control" name="content" placeholder="답글 입력"></textarea>
 						<button class="btn btn-outline-success">등록</button>
 					</form>
@@ -98,22 +98,32 @@
 	
 	
 	<script type="text/javascript">
-		$(document).off("click",".comment-delete");
-		$(document).on("click",".comment-delete", function(e){
-			alert("삭제");
-			let co_ori_num = $(this).data("num"); 
-			$(this).closest('.comment-list').find('.reply').remove();
-			const replyHtml = `
-				<div class="reply">
-					<form class="input-group mt-3 comment-insert-form" data-num="${co_ori_num}">
-						<textarea class="form-control" name="content" placeholder="답글 입력"></textarea>
-						<button class="btn btn-outline-success">등록</button>
-					</form>
-				</div>
-				`;
+	$(document).off("click",".comment-delete");
+	$(document).on("click",".comment-delete", function(e){
+		alert("삭제");
+		getCommentList(cri);
+		let num = $(this).data("num");
+		
+		$.ajax({
+			async : true, //비동기 : true(비동기)
+			url : '<c:url value="/comment/delete"/>',					
+			type : 'get', 													
+			//data : JSON.stringify(obj), 
+			data: { co_num: num },
+			//contentType : "application/json; charset=utf-8",	//object
+			//dataType : "json",								//object 
+			success : function (data){
 
-			$(this).parent().after(replyHtml);
+			console.log(data);
+			}, 
+			error : function(jqXHR, textStatus, errorThrown){
+
+			}
 		});
+	
+	});
+
+
 	
 	</script>
 	
