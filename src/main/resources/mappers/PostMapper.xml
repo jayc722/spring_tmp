@@ -57,7 +57,7 @@
 					or po_content like concat('%', #{criteria.search}, '%')
 				)
 			</when>
-			<when test="criteria.type == 'user'">
+			<when test="criteria.type == 'name'">
 				and po_me_id = #{criteria.search}
 			</when>
 		</choose>
