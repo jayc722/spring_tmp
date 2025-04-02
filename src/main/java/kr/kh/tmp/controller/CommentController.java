@@ -64,5 +64,6 @@ public class CommentController {
 		return "comment/list";					//comment 폴더의 list.jsp 파일로 감.
 	}
 	
+
 	
 }

@@ -84,6 +84,12 @@
 				e.preventDefault();
 				var $content = $(this).find("[name=content]");
 				var content = $content.val().trim();
+				var ori_num = $(this).data("num");
+				ori_num = (typeof ori_num === 'undefined' || ori_num == null) ? 0 : ori_num;				//이거 추가해서 답글등록 댓글등록 같은 함수로 쓰기 위해서
+						//Mapper에서 
+						/*
+						<if test="comment.co_ori_num == 0">ifnull(max(co_num), 0) + 1</if>에서 ori_num이 0이면 co_num이 ori_num으로 들어가게 했기때문에
+						*/
 				
 				//댓글 내용 입력 안한 경우 처리
 				if(content.length == 0){
@@ -107,7 +113,8 @@
 					//data : JSON.stringify(obj), 
 					data : JSON.stringify({
 						co_po_num : cri.po_num,
-						co_content : content		
+						co_content : content,
+						co_ori_num : ori_num
 					}), 
 					contentType : "application/json; charset=utf-8",	//json으로 보내니 필요
 					//dataType : "json",								//object로 받으니 지움 

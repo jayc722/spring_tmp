@@ -14,16 +14,18 @@
 </head>
 <body>
 	<h1>댓글</h1>
-	<c:if test="${comment.size()!=0}">
+	<c:if test="${not empty comment}">
 		<div class="comment-list">
 			<c:forEach items="${comment}" var="co"><!-- taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" 추가 안하면 c:foreach 색깔부터 다름 -->
-				<div class="comment-writer">${co.co_me_id}</div><!-- 작성자 -->
-				<div class="comment-content">${co.co_content}</div><!-- 내용 -->
-				<div>
-					<button class="btn btn-outline-success">답글</button>
-					<button class="btn btn-outline-warning">수정</button>
-					<button class="btn btn-outline-danger">삭제</button>
-				
+				<div class="comment-item <c:if test="${co.co_num ne co.co_ori_num }">pl-5</c:if>">
+					<div class="comment-writer">${co.co_me_id}</div><!-- 작성자 -->
+					<div class="comment-content">${co.co_content}</div><!-- 내용 -->
+					<div>
+						<button class="btn btn-outline-success comment-reply" data-num="${co.co_num}">답글</button>	<!-- co_ori_num이 될 값을 여기에 추가 -->
+						<button class="btn btn-outline-warning comment-update" data-num="${co.co_num}">수정</button>
+						<button class="btn btn-outline-danger comment-delete" data-num="${co.co_num}">삭제</button>
+					
+					</div>
 				</div>
 			</c:forEach>
 		</div>
@@ -58,6 +60,8 @@
 		  </ul>	
 		</div>
 
+
+
 	</c:if>	
 	<c:if test="${comment.size() == 0}">
 		<div class="text-center">등록된 댓글이 없습니다.</div>
@@ -72,6 +76,111 @@
 	</script>
 	
 	
+	<script type="text/javascript">
+		$(document).off("click",".comment-reply");
+		$(document).on("click",".comment-reply", function(e){
+			//alert("답글");
+			let co_ori_num = $(this).data("num"); 
+			$(this).closest('.comment-list').find('.reply').remove();
+			const replyHtml = `
+				<div class="reply">
+					<form class="input-group mt-3 comment-insert-form" data-num="${co_ori_num}">
+						<textarea class="form-control" name="content" placeholder="답글 입력"></textarea>
+						<button class="btn btn-outline-success">등록</button>
+					</form>
+				</div>
+				`;
+
+			$(this).parent().after(replyHtml);
+		});
+	
+	</script>
+	
+	
+	<script type="text/javascript">
+		$(document).off("click",".comment-delete");
+		$(document).on("click",".comment-delete", function(e){
+			alert("삭제");
+			let co_ori_num = $(this).data("num"); 
+			$(this).closest('.comment-list').find('.reply').remove();
+			const replyHtml = `
+				<div class="reply">
+					<form class="input-group mt-3 comment-insert-form" data-num="${co_ori_num}">
+						<textarea class="form-control" name="content" placeholder="답글 입력"></textarea>
+						<button class="btn btn-outline-success">등록</button>
+					</form>
+				</div>
+				`;
+
+			$(this).parent().after(replyHtml);
+		});
+	
+	</script>
+	
+	
+	<script type="text/javascript"> //detail 댓글입력 가져옴
+	/*	//만들었는데 필요없네... detail에서 댓글 등록 때 썼던거 그대로쓰면 돼서...
+			
+			//$(".comment-insert-form").click(function(e){
+			$(document).off("submit", ".reply-insert-form")
+			$(document).on("submit", ".reply-insert-form", function(e){
+				
+				e.preventDefault();
+				var $content = $(this).find("[name=content]");
+				var content = $content.val().trim();
+				
+				
+				
+				//댓글 내용 입력 안한 경우 처리
+				if(content.length == 0){
+					alert("댓글 내용을 입력하세요");
+					$content.focus();
+					return;
+				}
+				
+				
+				//alert(1);
+
+				
+				console.log(content);
+
+				//json으로 화면에서 보내서 서버에서 object로 받도록(노션의 json json에서 가져옴)
+			
+				$.ajax({
+					async : true, //비동기 : true(비동기)
+					url : '<c:url value="/comment/reply"/>',					//ajax 예제 참고 
+					type : 'post', 													//json으로 보내는건 무조건 postmapping 해야함
+					//data : JSON.stringify(obj), 
+					data : JSON.stringify({
+						co_po_num : cri.po_num,
+						co_content : content,
+						co_ori_num : co_ori_num
+					}), 
+					contentType : "application/json; charset=utf-8",	//json으로 보내니 필요
+					//dataType : "json",								//object로 받으니 지움 
+					success : function (data){
+						console.log(data);
+						//console.log(data);
+						if(data){
+							alert("답글을 등록했습니다.");
+							//댓글 입력 후 입력칸 공백으로
+							//$(this).find("[name=content]").val("");				//여기의 this는 .ajax가 됨...
+							$content.val('');										//이렇게 가져와야 함
+							//댓글창 새로고침
+							getCommentList(cri);				
+						}else{
+							alert("답글을 등록하지 못했습니다.");
+						}
+					}, 
+					error : function(jqXHR, textStatus, errorThrown){
+
+					}
+				});
+			
+			});
+
+			*/
+	</script>
 		
 		
 </body>
