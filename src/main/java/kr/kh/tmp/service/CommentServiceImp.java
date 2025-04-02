@@ -45,4 +45,14 @@ public class CommentServiceImp implements CommentService{
 		return new PageMaker(3, cri, totalCount);		//페이지메이커(이전버튼과 다음버튼 사이 숫자 개수 , 현재 페이지 정보 , 요소의 총 개수)
 	}
 
+	@Override
+	public boolean deleteComment(int co_num, MemberVO user) {
+
+		CommentVO comment = commentDao.selectComment(co_num);
+		
+		System.out.println(comment);
+
+		return false;
+	}
+
 }

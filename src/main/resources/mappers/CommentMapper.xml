@@ -23,4 +23,10 @@
   	select count(*) from comment where co_po_num = #{criteria.po_num}
   
   </select>
+  
+  <delete id="deleteComment"></delete>
+  
+  <select id="selectComment" resultType="commentVO">
+  	select * from comment where co_num = #{co_num}
+  </select>
 </mapper>
