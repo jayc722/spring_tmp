@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.kh.tmp.model.vo.CommentVO;
 import kr.kh.tmp.model.vo.MemberVO;
+import kr.kh.tmp.pagination.CommentCriteria;
 import kr.kh.tmp.service.CommentService;
 
 @Controller
@@ -36,9 +37,10 @@ public class CommentController {
 	
 	@ResponseBody	//json으로 보냈으니 body로 받아야
 	@PostMapping("/list")
-	//public boolean list(@RequestBody CommentVO comment) {
-	public String list() {
-		
+	//public String list() {
+	//public String list(@RequestBody Criteria cri) {	//이렇게 하면 페이지는 받아와지는데 게시글 번호(po_num)가 안받아와짐 because criteria에는 po_num이 없고 postCriteria는 bo_num으로 되어있기때문...
+	public String list(@RequestBody CommentCriteria cri) {	//CommentCriteria 클래스 새로 생성해서(po_num을 포함하는) 객체로 만들면 받아와짐
+		System.out.println(cri);
 		return "";
 	}
 	

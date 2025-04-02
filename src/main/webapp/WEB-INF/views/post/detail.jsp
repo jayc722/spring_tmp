@@ -84,6 +84,10 @@
 		
 		<script type="text/javascript">
 
+			var cri = {//현재 페이지정보
+				page : 1,				//최소 페이지 1페이지
+				po_num : ${post.po_num}	//input hidden에다 해도 되긴함
+			}
 			//$(".comment-insert-form").click(function(e){
 			$(document).on("submit", ".comment-insert-form", function(e){
 				
@@ -91,7 +95,6 @@
 				//댓글 내용 입력 안한 경우 처리
 				
 				//alert(1);
-
 				
 				var $obj = $(this).find("[name=content]");
 				var co_content = $(this).find("[name=content]").val().trim();
@@ -140,11 +143,8 @@
 		
 		<script type="text/javascript">
 
-		var cri = {
-			page : 1,				//최소 페이지 1페이지
-			po_num : ${post.po_num}	//input hidden에다 해도 되긴함
-		}
-		console.log(cri);	
+
+		//console.log(cri);	
 		
 		//재사용 하려고 함수로 만들기
 		getCommentList(cri);
@@ -157,10 +157,6 @@
 				contentType : "application/json; charset=utf-8",
 				success : function (data){
 					console.log(data);
-					let list = data.list;
-					for(comment of list){
-						console.log(comment);
-					}
 				}, 
 				error : function(jqXHR, textStatus, errorThrown){
 
