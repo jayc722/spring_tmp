@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,17 +44,21 @@ public class CommentController {
 	@PostMapping("/list")
 	//public String list() {
 	//public String list(@RequestBody Criteria cri) {	//이렇게 하면 페이지는 받아와지는데 게시글 번호(po_num)가 안받아와짐 because criteria에는 po_num이 없고 postCriteria는 bo_num으로 되어있기때문...
-	public String list(@RequestBody CommentCriteria cri) {	//CommentCriteria 클래스 새로 생성해서(po_num을 포함하는) 객체로 만들면 받아와짐
+	public String list(Model model, @RequestBody CommentCriteria cri) {	//CommentCriteria 클래스 새로 생성해서(po_num을 포함하는) 객체로 만들면 받아와짐
+		
+		//페이지당 댓글개수 설정
+		cri.setPerPageNum(3);
+		
 		//System.out.println(cri);
 		List<CommentVO> commentList =  commentService.getCommentList(cri);
-		
-		if(commentList.isEmpty())return null;
+		/*
 		for(CommentVO comment : commentList) {
 			System.out.println(comment);
-		}
-		
+		}*/
 		PageMaker pm =  commentService.getPageMaker(cri);
-		System.out.println(pm);
+		//System.out.println(pm);
+		model.addAttribute("comment", commentList);
+		model.addAttribute("page", pm);
 		
 		
 		return "comment/list";					//comment 폴더의 list.jsp 파일로 감.

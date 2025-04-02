@@ -58,22 +58,11 @@
 				</c:if>
 			</div>
 		</div>
-		<div class="comment-container">
-			<div class="comment-box">
-				<div class="comment-writer"></div>
-				<div class="comment-content">댓글 내용</div>
-			</div>
-			<div class="comment-function">
-				<button>답글</button>
-				<button>수정</button>
-				<button>삭제</button>
-			
-			</div>
-			
-		</div>
+
 		
 		<div class="comment-container">
-			<div class="comment-wrap">
+			<div class="comment-wrap"><!-- 댓글 목록 -->
+			
 
 			</div>
 			<form class="input-group mt-3 comment-insert-form">
@@ -92,22 +81,22 @@
 			$(document).on("submit", ".comment-insert-form", function(e){
 				
 				e.preventDefault();
+				var $content = $(this).find("[name=content]");
+				var content = $content.val().trim();
+				
 				//댓글 내용 입력 안한 경우 처리
+				if(content.length == 0){
+					alert("댓글 내용을 입력하세요");
+					$content.focus();
+					return;
+				}
+				
 				
 				//alert(1);
-				
-				var $obj = $(this).find("[name=content]");
-				var co_content = $(this).find("[name=content]").val().trim();
-			
+
 				
 				//console.log(co_content);
-				
-				
-				let obj = {
-						co_po_num : cri.po_num,
-						co_content : co_content,
-						//co_ori_num : co_ori_num,
-				}
+
 				//json으로 화면에서 보내서 서버에서 object로 받도록(노션의 json json에서 가져옴)
 			
 				$.ajax({
@@ -117,7 +106,7 @@
 					//data : JSON.stringify(obj), 
 					data : JSON.stringify({
 						co_po_num : cri.po_num,
-						co_content : co_content		
+						co_content : content		
 					}), 
 					contentType : "application/json; charset=utf-8",	//json으로 보내니 필요
 					//dataType : "json",								//object로 받으니 지움 
@@ -126,11 +115,14 @@
 						//console.log(data);
 						if(data){
 							alert("댓글을 등록했습니다.");
+							//댓글 입력 후 입력칸 공백으로
+							//$(this).find("[name=content]").val("");				//여기의 this는 .ajax가 됨...
+							$content.val('');										//이렇게 가져와야 함
+							//댓글창 새로고침
+							getCommentList(cri);				
 						}else{
 							alert("댓글을 등록하지 못했습니다.");
 						}
-						//$(this).find("[name=content]").val("");				//여기의 this는 .ajax가 됨...
-						$obj.val("");
 					}, 
 					error : function(jqXHR, textStatus, errorThrown){
 
@@ -157,6 +149,7 @@
 				contentType : "application/json; charset=utf-8",
 				success : function (data){
 					console.log(data);
+					$(".comment-wrap").html(data);			//화면으로 보냈기 때문에 html코드 이용하면 html바로 적용됨
 				}, 
 				error : function(jqXHR, textStatus, errorThrown){
 
