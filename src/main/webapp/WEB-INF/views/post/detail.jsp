@@ -58,6 +58,19 @@
 				</c:if>
 			</div>
 		</div>
+		<div class="comment-container">
+			<div class="comment-box">
+				<div class="comment-writer"></div>
+				<div class="comment-content">댓글 내용</div>
+			</div>
+			<div class="comment-function">
+				<button>답글</button>
+				<button>수정</button>
+				<button>삭제</button>
+			
+			</div>
+			
+		</div>
 		
 		<div class="comment-container">
 			<div class="comment-wrap">
@@ -78,11 +91,7 @@
 				//댓글 내용 입력 안한 경우 처리
 				
 				//alert(1);
-				//console.log(cri);	
-				var cri = {
-					page : 1,				//최소 페이지 1페이지
-					po_num : ${post.po_num}	//input hidden에다 해도 되긴함
-				}
+
 				
 				var $obj = $(this).find("[name=content]");
 				var co_content = $(this).find("[name=content]").val().trim();
@@ -126,10 +135,45 @@
 				});
 			
 			});
-			
+		
+		</script>
+		
+		<script type="text/javascript">
+
+		var cri = {
+			page : 1,				//최소 페이지 1페이지
+			po_num : ${post.po_num}	//input hidden에다 해도 되긴함
+		}
+		console.log(cri);	
+		
+		//재사용 하려고 함수로 만들기
+		getCommentList(cri);
+		function getCommentList(cri){
+			$.ajax({
+				async : true, 
+				url : '<c:url value="/comment/list"/>', 
+				type : 'post',	//json으로 보내면 무조건 post... object로 보내면 get이든 post이든 상관x 
+				data : JSON.stringify(cri), 
+				contentType : "application/json; charset=utf-8",
+				success : function (data){
+					console.log(data);
+					let list = data.list;
+					for(comment of list){
+						console.log(comment);
+					}
+				}, 
+				error : function(jqXHR, textStatus, errorThrown){
+
+				}
+			});
+		
+		
+		}
 		
 		
 		
 		</script>
+		
+		
 </body>
 </html>

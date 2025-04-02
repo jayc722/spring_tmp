@@ -32,4 +32,15 @@ public class CommentController {
 		
 		return commentService.insertComment(comment,user);
 	}
+	
+	
+	@ResponseBody	//json으로 보냈으니 body로 받아야
+	@PostMapping("/list")
+	//public boolean list(@RequestBody CommentVO comment) {
+	public String list() {
+		
+		return "";
+	}
+	
+	
 }
