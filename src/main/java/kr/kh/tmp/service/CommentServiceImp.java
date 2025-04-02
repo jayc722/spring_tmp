@@ -52,7 +52,7 @@ public class CommentServiceImp implements CommentService{
 		if(user==null) return false;
 		CommentVO comment = commentDao.selectComment(co_num);
 		//System.out.println(comment);
-		if(!comment.getCo_me_id().equals(user.getMe_id()))return false;
+		if(comment==null||!comment.getCo_me_id().equals(user.getMe_id()))return false;
 		
 		
 		return commentDao.deleteComment(co_num);

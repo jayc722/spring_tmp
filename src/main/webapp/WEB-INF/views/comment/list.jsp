@@ -18,14 +18,18 @@
 		<div class="comment-list">
 			<c:forEach items="${comment}" var="co"><!-- taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" 추가 안하면 c:foreach 색깔부터 다름 -->
 				<div class="comment-item <c:if test="${co.co_num ne co.co_ori_num }">pl-5</c:if>">
-					<div class="comment-writer">${co.co_me_id}</div><!-- 작성자 -->
-					<div class="comment-content">${co.co_content}</div><!-- 내용 -->
-					<div>
-						<button class="btn btn-outline-success comment-reply" data-num="${co.co_num}">답글</button>	<!-- co_ori_num이 될 값을 여기에 추가 -->
-						<button class="btn btn-outline-warning comment-update" data-num="${co.co_num}">수정</button>
-						<button class="btn btn-outline-danger comment-delete" data-num="${co.co_num}">삭제</button>
-					
-					</div>
+					<c:if test="${co.co_del eq 'N'}">					
+						<div class="comment-writer">${co.co_me_id}</div><!-- 작성자 -->
+						<div class="comment-content">${co.co_content}</div><!-- 내용 -->
+						<div>
+							<button class="btn btn-outline-success comment-reply" data-num="${co.co_num}">답글</button>	<!-- co_ori_num이 될 값을 여기에 추가 -->
+							<button class="btn btn-outline-warning comment-update" data-num="${co.co_num}">수정</button>
+							<button class="btn btn-outline-danger comment-delete" data-num="${co.co_num}">삭제</button>
+						</div>
+					</c:if>
+					<c:if test="${co.co_del ne 'N'}">
+						<div class="mt-5">작성자에 의해 삭제된 댓글입니다.</div>
+					</c:if>
 				</div>
 			</c:forEach>
 		</div>

@@ -21,12 +21,11 @@
   
   <select id="selectTotalCommentCount" resultType="int">
   	select count(*) from comment where co_po_num = #{criteria.po_num}
-  
   </select>
   
-  <delete id="deleteComment">
+  <update id="deleteComment">
   	update comment set co_del = "Y" where co_num=#{co_num}
-  </delete>
+  </update>
   
   <select id="selectComment" resultType="commentVO">
   	select * from comment where co_num = #{co_num} and co_del = 'N'
