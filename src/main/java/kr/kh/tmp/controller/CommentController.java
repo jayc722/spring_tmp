@@ -52,7 +52,7 @@ public class CommentController {
 		}
 		
 		PageMaker pm =  commentService.getPageMaker(cri);
-		
+		System.out.println(pm);
 		
 		
 		return "";

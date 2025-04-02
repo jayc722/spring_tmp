@@ -15,6 +15,6 @@ public interface CommentService {
 	//List<CommentVO> getCommentList(CommentCriteria cri);
 	List<CommentVO> getCommentList(Criteria cri);	//다형성 때문에
 
-	PageMaker getPageMaker(CommentCriteria cri);
+	PageMaker getPageMaker(Criteria cri);
 
 }

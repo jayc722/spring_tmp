@@ -39,11 +39,10 @@ public class CommentServiceImp implements CommentService{
 	}
 
 	@Override
-	public PageMaker getPageMaker(CommentCriteria cri) {
+	public PageMaker getPageMaker(Criteria cri) {
 		if(cri==null)return null;
 		int totalCount = commentDao.selectTotalCommentCount(cri);
-		PageMaker pm = new PageMaker(10, cri, totalCount);
-		return pm;
+		return new PageMaker(10, cri, totalCount);		//페이지메이커(이전버튼과 다음버튼 사이 숫자 개수 , 현재 페이지 정보 , 요소의 총 개수)
 	}
 
 }
