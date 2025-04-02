@@ -107,7 +107,7 @@
 		$.ajax({
 			async : true, //비동기 : true(비동기)
 			url : '<c:url value="/comment/delete"/>',					
-			type : 'get', 													
+			type : 'post', 													
 			//data : JSON.stringify(obj), 
 			data: { co_num: num },
 			//contentType : "application/json; charset=utf-8",	//object

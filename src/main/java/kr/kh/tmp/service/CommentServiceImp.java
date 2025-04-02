@@ -48,11 +48,14 @@ public class CommentServiceImp implements CommentService{
 	@Override
 	public boolean deleteComment(int co_num, MemberVO user) {
 
+		//co_num은 체크 필요 없고
+		if(user==null) return false;
 		CommentVO comment = commentDao.selectComment(co_num);
+		//System.out.println(comment);
+		if(!comment.getCo_me_id().equals(user.getMe_id()))return false;
 		
-		System.out.println(comment);
-
-		return false;
+		
+		return commentDao.deleteComment(co_num);
 	}
 
 }

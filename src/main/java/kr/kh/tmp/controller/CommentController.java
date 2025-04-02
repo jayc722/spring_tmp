@@ -68,18 +68,18 @@ public class CommentController {
 	
 	
 	@ResponseBody
-	@GetMapping("/delete")
+	@PostMapping("/delete")
 	public boolean delete(@RequestParam int co_num, HttpSession session) {
 		
 		MemberVO user = (MemberVO)session.getAttribute("user");
-		System.out.println(user);
-		System.out.println(co_num);
+		//System.out.println(user);
+		//System.out.println(co_num);
 		
 		
 		
 		boolean res = commentService.deleteComment(co_num, user);
 		
-		return false;
+		return res;
 	}
 	
 
