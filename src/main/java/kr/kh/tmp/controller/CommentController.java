@@ -38,7 +38,8 @@ public class CommentController {
 	}
 	
 	
-	@ResponseBody	//json으로 보냈으니 body로 받아야
+	//@ResponseBody	//json으로 보냈으니 body로 받아야
+	//화면만 전달하려고(전날 예제 참고)	-> 리스폰스바디가 없으니 뷰리졸버가 리턴값에 해당하는 jsp 파일 가져옴.
 	@PostMapping("/list")
 	//public String list() {
 	//public String list(@RequestBody Criteria cri) {	//이렇게 하면 페이지는 받아와지는데 게시글 번호(po_num)가 안받아와짐 because criteria에는 po_num이 없고 postCriteria는 bo_num으로 되어있기때문...
@@ -55,7 +56,7 @@ public class CommentController {
 		System.out.println(pm);
 		
 		
-		return "";
+		return "comment/list";					//comment 폴더의 list.jsp 파일로 감.
 	}
 	
 	
