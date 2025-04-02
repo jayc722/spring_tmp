@@ -1,5 +1,7 @@
 package kr.kh.tmp.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.kh.tmp.model.vo.CommentVO;
 import kr.kh.tmp.model.vo.MemberVO;
 import kr.kh.tmp.pagination.CommentCriteria;
+import kr.kh.tmp.pagination.PageMaker;
 import kr.kh.tmp.service.CommentService;
 
 @Controller
@@ -40,7 +43,18 @@ public class CommentController {
 	//public String list() {
 	//public String list(@RequestBody Criteria cri) {	//이렇게 하면 페이지는 받아와지는데 게시글 번호(po_num)가 안받아와짐 because criteria에는 po_num이 없고 postCriteria는 bo_num으로 되어있기때문...
 	public String list(@RequestBody CommentCriteria cri) {	//CommentCriteria 클래스 새로 생성해서(po_num을 포함하는) 객체로 만들면 받아와짐
-		System.out.println(cri);
+		//System.out.println(cri);
+		List<CommentVO> commentList =  commentService.getCommentList(cri);
+		
+		if(commentList.isEmpty())return null;
+		for(CommentVO comment : commentList) {
+			System.out.println(comment);
+		}
+		
+		PageMaker pm =  commentService.getPageMaker(cri);
+		
+		
+		
 		return "";
 	}
 	

@@ -15,4 +15,12 @@
   		</if>
   		from comment
   </insert>
+  <select id="selectCommentList" resultType="CommentVO">
+  	select * from comment where co_po_num = #{criteria.po_num} order by co_ori_num desc, co_num limit #{criteria.pageStart}, #{criteria.perPageNum}<!-- limit은 거의 고정. 시작번호랑 몇개 띄울건지.. 대댓글 하기 위해 co_ori_num을 먼저 -->
+  </select>
+  
+  <select id="selectTotalCommentCount" resultType="int">
+  	select count(*) from comment where co_po_num = #{criteria.po_num}
+  
+  </select>
 </mapper>

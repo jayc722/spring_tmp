@@ -85,7 +85,7 @@
 		<script type="text/javascript">
 
 			var cri = {//현재 페이지정보
-				page : 1,				//최소 페이지 1페이지
+				page : 1,				//1페이지에서 시작.
 				po_num : ${post.po_num}	//input hidden에다 해도 되긴함
 			}
 			//$(".comment-insert-form").click(function(e){

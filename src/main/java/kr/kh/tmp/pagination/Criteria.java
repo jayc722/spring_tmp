@@ -17,7 +17,7 @@ public class Criteria {
 		this.page = page;
 		this.perPageNum = perPageNum;
 	}
-	public int getPageStart() {
+	public int getPageStart() {					//pageStart 호출하면 mapper에서 얘를 가져오기 때문에 pageStart를 변수처럼 사용 가능
 		return (page - 1) * perPageNum;
 	}
 }
