@@ -163,6 +163,7 @@
 			success : function (data){
 
 			console.log(data);
+			getCommentList(cri);	
 			}, 
 			error : function(jqXHR, textStatus, errorThrown){
 

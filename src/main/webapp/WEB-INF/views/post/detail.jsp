@@ -82,13 +82,13 @@
 			$(document).off("submit", ".comment-insert-form")
 			$(document).on("submit", ".comment-insert-form", function(e){
 				
+				e.preventDefault();
 
 				if('${user.me_id}' == ''){
 					if(confirm("로그인이 필요한 서비스입니다. \n로그인 페이지로 이동하시겠습니까?")) location.href = "<c:url value="/login"/>";
-					return;
+					return false;
 				}
 				
-				e.preventDefault();
 				var $content = $(this).find("[name=content]");
 				var content = $content.val().trim();
 				var ori_num = $(this).data("num");
