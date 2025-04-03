@@ -30,4 +30,8 @@
   <select id="selectComment" resultType="commentVO">
   	select * from comment where co_num = #{co_num} and co_del = 'N'
   </select>
+  
+  <update id="updateComment">
+  	update comment set co_content = #{comment.co_content} where co_num = #{comment.co_num}
+  </update>
 </mapper>

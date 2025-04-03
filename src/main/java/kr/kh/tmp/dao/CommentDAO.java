@@ -20,5 +20,7 @@ public interface CommentDAO {
 
 	CommentVO selectComment(@Param("co_num")int co_num);
 
+	boolean updateComment(@Param("comment")CommentVO comment);
+
 
 }

@@ -82,6 +82,20 @@ public class CommentController {
 		return res;
 	}
 	
+	
+	@ResponseBody
+	@PostMapping("/update")
+	public boolean update(@RequestBody CommentVO comment, HttpSession session) {		//json으로 보내면 requestBody로 받음
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		//System.out.println(user);
+		//System.out.println(comment);
+		
+		boolean res = commentService.updateComment(comment, user);
+		
+		return res;
+	}
+	
 
 	
 }

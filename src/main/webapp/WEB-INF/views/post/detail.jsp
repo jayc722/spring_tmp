@@ -175,15 +175,15 @@
 		<script type="text/javascript">
 			//$(document).off("submit", ".comment-update-form")	//한번밖에 호출 안하니 굳이...?
 			$(document).on("submit", ".comment-update-form", function(e){
-				
+				//alert(1);
 				e.preventDefault();			
 				let co_num = $(this).data("num");
 				let $co_content = $(this).find("[name=content]");
 				let co_content = $co_content.val().trim();
-				alert(co_num + co_content);
+				//alert(co_num + co_content);
 				
 				//댓글 내용 입력 안한 경우 처리
-				if(content.length == 0){
+				if(co_content.length == 0){
 					alert("수정할 댓글 내용을 입력하세요");
 					$content.focus();
 					return;
@@ -206,14 +206,14 @@
 						console.log(data);
 						//console.log(data);
 						if(data){
-							alert("댓글을 등록했습니다.");
+							alert("댓글을 수정했습니다.");
 							//댓글 입력 후 입력칸 공백으로
-							//$(this).find("[name=content]").val("");				
+							$(this).find("[name=content]").val("");				
 							$co_content.val('');										
 							//댓글창 새로고침
 							getCommentList(cri);				
 						}else{
-							alert("댓글을 등록하지 못했습니다.");
+							alert("댓글을 수정하지 못했습니다.");
 						}
 					}, 
 					error : function(jqXHR, textStatus, errorThrown){
@@ -222,7 +222,7 @@
 				});
 				
 				
-			}
+			})
 		
 		</script>
 		
