@@ -108,7 +108,7 @@
 			//let $content = $(this).parent().siblings(".comment-content");
 			//let $content = $(this).parents(".coment-item").find(".comment-content");		//강사님. 
 			
-			let content = $content.html();
+			let content = $content.text();
 			
 			//alert(content);
 			
@@ -119,7 +119,7 @@
 			let num = $(this).data("num");
 			const str = `
 				<div class="update">
-					<form class="input-group mt-3 comment-insert-form" data-num="\${num}">
+					<form class="input-group mt-3 comment-update-form" data-num="\${num}">
 						<textarea class="form-control" name="content" placeholder="수정할 내용 입력">\${content}</textarea>
 						<button class="btn btn-outline-success" type="submit">수정</button>
 					</form>
