@@ -21,10 +21,10 @@ public class CommentServiceImp implements CommentService{
 	@Override
 	public boolean insertComment(CommentVO comment, MemberVO user) {
 		// TODO Auto-generated method stub
-		if(comment == null /*|| user == null*/) return false;
+		if(comment == null || user == null) return false;
 		
-		//comment.setCo_me_id(user.getMe_id());
-		comment.setCo_me_id("123"); //로그인 없이 테스트하려고 우선
+		comment.setCo_me_id(user.getMe_id());
+		//comment.setCo_me_id("123"); //로그인 없이 테스트하려고 우선
 		
 		return commentDao.insertComment(comment);
 	}
@@ -64,7 +64,7 @@ public class CommentServiceImp implements CommentService{
 		if(comment==null||user==null)return false;
 		CommentVO oriComment = commentDao.selectComment(comment.getCo_num());
 		if(oriComment==null||!oriComment.getCo_me_id().equals(user.getMe_id()))return false;
-		comment.setCo_me_id(user.getMe_id());
+		//comment.setCo_me_id(user.getMe_id());
 		
 		
 		
