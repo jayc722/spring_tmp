@@ -16,7 +16,8 @@
 	<h1>댓글</h1>
 	<c:if test="${not empty comment}">
 		<div class="comment-list">
-			<c:forEach items="${comment}" var="co"><!-- taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" 추가 안하면 c:foreach 색깔부터 다름 -->
+			<c:forEach items="${comment}" var="co">	<!-- taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" 추가 안하면 c:foreach 색깔부터 다름 -->
+													<!-- co 변수로 사용됨 -->
 				<div class="comment-item <c:if test="${co.co_num ne co.co_ori_num }">pl-5</c:if>">
 					<c:if test="${co.co_del eq 'N'}">					
 						<div class="comment-writer">${co.co_me_id}</div><!-- 작성자 -->
@@ -99,6 +100,41 @@
 		});
 	
 	</script>
+		
+	<script type="text/javascript">
+		$(document).off("click",".comment-update")
+		$(document).on("click",".comment-update",function(e){
+			let $content = $(this).closest(".comment-item").find(".comment-content");
+			//let $content = $(this).parent().siblings(".comment-content");
+			//let $content = $(this).parents(".coment-item").find(".comment-content");		//강사님. 
+			
+			let content = $content.html();
+			
+			//alert(content);
+			
+			$content.hide();		//j쿼리에서 제공하는 메소드
+			
+			//if($content.nextAll(".comment-update-form".length != 0)) return;
+			
+			let num = $(this).data("num");
+			const str = `
+				<div class="update">
+					<form class="input-group mt-3 comment-insert-form" data-num="\${num}">
+						<textarea class="form-control" name="content" placeholder="수정할 내용 입력">\${content}</textarea>
+						<button class="btn btn-outline-success" type="submit">수정</button>
+					</form>
+				</div>
+				`;
+				
+			$(this).parents('.comment-container').find('.comment-update').parent().show();			
+			$(this).closest('.comment-wrap').find('.update').remove();
+			$(this).parent().hide();			//수정버튼 누르면 버튼입력창 감춰지게 하면 수정버튼 여러번 누를수 없어서 수정버튼 여러번 누를때 굳이 안만들어도 되긴함..
+			$content.after(str);
+		});
+	
+	
+	</script>
+		
 	
 	
 	<script type="text/javascript">
