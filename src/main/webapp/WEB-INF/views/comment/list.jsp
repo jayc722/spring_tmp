@@ -24,8 +24,10 @@
 						<div class="comment-content">${co.co_content}</div><!-- 내용 -->
 						<div>
 							<button class="btn btn-outline-success comment-reply" data-num="${co.co_num}">답글</button>	<!-- co_ori_num이 될 값을 여기에 추가 -->
-							<button class="btn btn-outline-warning comment-update" data-num="${co.co_num}">수정</button>
-							<button class="btn btn-outline-danger comment-delete" data-num="${co.co_num}">삭제</button>
+							<c:if test="${co.co_me_id eq user.me_id}"><!-- session의 user에서 가져옴 -->
+								<button class="btn btn-outline-warning comment-update" data-num="${co.co_num}">수정</button>
+								<button class="btn btn-outline-danger comment-delete" data-num="${co.co_num}">삭제</button>
+							</c:if>	
 						</div>
 					</c:if>
 					<c:if test="${co.co_del ne 'N'}">
@@ -80,10 +82,16 @@
 		})
 	</script>
 	
-	
+	<!-- 답글 입력 -->
 	<script type="text/javascript">
 		$(document).off("click",".comment-reply");
 		$(document).on("click",".comment-reply", function(e){
+			
+			if('${user.me_id}' == ''){
+				if(confirm("로그인이 필요한 서비스입니다. \n로그인 페이지로 이동하시겠습니까?")) location.href = "<c:url value="/login"/>";
+				return;
+			}
+			
 			//alert("답글");
 			let co_ori_num = $(this).data("num"); 
 			$(this).closest('.comment-list').find('.reply').remove();

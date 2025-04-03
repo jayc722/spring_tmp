@@ -71,6 +71,7 @@
 			</form>
 		</div>
 		
+		<!-- 댓글 등록 -->
 		<script type="text/javascript">
 
 			var cri = {//현재 페이지정보
@@ -80,6 +81,12 @@
 			//$(".comment-insert-form").click(function(e){
 			$(document).off("submit", ".comment-insert-form")
 			$(document).on("submit", ".comment-insert-form", function(e){
+				
+
+				if('${user.me_id}' == ''){
+					if(confirm("로그인이 필요한 서비스입니다. \n로그인 페이지로 이동하시겠습니까?")) location.href = "<c:url value="/login"/>";
+					return;
+				}
 				
 				e.preventDefault();
 				var $content = $(this).find("[name=content]");
