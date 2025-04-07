@@ -88,13 +88,13 @@
 
 				$.ajax({
 					async : true,
-					url : '<c:url value="/post/rec"/>',					
+					url : '<c:url value="/post/like"/>',					
 					type : 'post',
-					data : {
-						po_state : state,
-						po_num : num
-					}, 
-					//contentType : "application/json; charset=utf-8",	
+					data : JSON.stringify({		//requestBody로 한꺼번에 받게 만들려고 likeVO 추가
+						li_state : state,
+						li_po_num : num
+					}), 
+					contentType : "application/json; charset=utf-8",	
 					//dataType : "json",								 
 					success : function (data){
 						if(data){
@@ -103,10 +103,10 @@
 						}else{
 						
 						}
-					}, 
-					error : function(jqXHR, textStatus, errorThrown){
+					} 
+					/*, error : function(jqXHR, textStatus, errorThrown){
 
-					}
+					}*/
 				});
 				
 				
