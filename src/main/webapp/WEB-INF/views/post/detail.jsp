@@ -85,6 +85,29 @@
 				//alert(num);
 				//alert(state);
 				
+
+				$.ajax({
+					async : true,
+					url : '<c:url value="/post/rec"/>',					
+					type : 'post',
+					data : {
+						po_state : state,
+						po_num : num
+					}, 
+					//contentType : "application/json; charset=utf-8",	
+					//dataType : "json",								 
+					success : function (data){
+						if(data){
+							console.log(data);
+
+						}else{
+						
+						}
+					}, 
+					error : function(jqXHR, textStatus, errorThrown){
+
+					}
+				});
 				
 				
 				
