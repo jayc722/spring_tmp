@@ -214,7 +214,19 @@ public class PostServiceImp implements PostService {
 		
 		//LikeVO dbLike = postDao.selectLike(like.getLi_po_num(), user.getMe_id());
 		LikeVO dbLike = postDao.selectLike(like.getLi_po_num(), "123");
-		System.out.println(dbLike);
+		
+		if(dbLike==null) {
+			postDao.insertLike(like);
+		}
+		
+		if(like.getLi_state() == dbLike.getLi_state()) {
+			like.setLi_state(0);
+			postDao.updateLike(like);
+		}
+		
+		else {
+			postDao.updateLike(like);
+		}
 		
 		return 0;
 	}
