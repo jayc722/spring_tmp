@@ -219,6 +219,8 @@ public class PostServiceImp implements PostService {
 			
 			postDao.insertLike(like.getLi_po_num(), like.getLi_state(), user.getMe_id());
 			//postDao.insertLike(like.getLi_po_num(),like.getLi_state(), "123");
+			
+			postDao.updatePostLike(like.getLi_po_num());
 			return like.getLi_state();
 		}
 		
@@ -233,8 +235,14 @@ public class PostServiceImp implements PostService {
 			//postDao.updateLike(like.getLi_po_num(), like.getLi_state(),  "123");
 
 
-		
+		postDao.updatePostLike(like.getLi_po_num());
 		return like.getLi_state();
+	}
+
+	@Override
+	public void updatePostLike(int po_num) {
+		postDao.updatePostLike(po_num);
+		
 	}
 	
 	

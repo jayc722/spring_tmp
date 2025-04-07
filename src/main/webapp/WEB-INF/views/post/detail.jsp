@@ -60,8 +60,8 @@
 		</div>
 		
 		<div class = "form-group d-flex justify-content-center"><!-- 이렇게 하면 가운데로 가는구나... -->
-			<button class = "btn btn-outline-info btn-up mr-2" data-num="${post.po_num}" data-state="1">추천(1)</button>
-			<button class = "btn btn-outline-danger btn-down ml-2" data-num="${post.po_num}" data-state="-1">비추천(1)</button>
+			<button class = "btn btn-outline-info btn-up mr-2" data-num="${post.po_num}" data-state="1">추천(${post.po_up})</button>
+			<button class = "btn btn-outline-danger btn-down ml-2" data-num="${post.po_num}" data-state="-1">비추천(${post.po_down})</button>
 		</div>
 
 		
@@ -112,6 +112,7 @@
 					/*, error : function(jqXHR, textStatus, errorThrown){
 
 					}*/
+					location.reload();
 				});
 				
 				

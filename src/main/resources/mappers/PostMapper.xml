@@ -149,5 +149,11 @@
 		update `like` set li_state = #{li_state} where li_num = #{li_num} 
 	</update>
 	
-	
+	<update id="updatePostLike">
+		UPDATE post
+		SET 
+        	po_up = (SELECT COUNT(*) FROM `like` WHERE li_po_num = #{li_po_num} AND li_state = 1),
+        	po_down = (SELECT COUNT(*) FROM `like` WHERE li_po_num = #{li_po_num} AND li_state = -1)
+    	WHERE po_num = #{li_po_num}
+	</update>
 </mapper>

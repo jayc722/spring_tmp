@@ -41,4 +41,6 @@ import kr.kh.tmp.pagination.PageMaker;public interface PostService {
 	//int selectLike(LikeVO like);
 
 	int updateLike(LikeVO like, MemberVO user);
+
+	void updatePostLike(int po_num);
 }
