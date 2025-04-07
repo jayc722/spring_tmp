@@ -58,6 +58,11 @@
 				</c:if>
 			</div>
 		</div>
+		
+		<div class = "form-group d-flex justify-content-center"><!-- 이렇게 하면 가운데로 가는구나... -->
+			<button class = "btn btn-outline-info rec" data-num="1">추천(1)</button>
+			<button class = "btn btn-outline-danger rec" data-num="-1">비추천(1)</button>
+		</div>
 
 		
 		<div class="comment-container">
@@ -70,6 +75,16 @@
 				<button class="btn btn-outline-success">등록</button>
 			</form>
 		</div>
+		
+		<!-- 추천 -->
+		<script type="text/javascript">
+			$(document).on("click", ".rec", function(e){
+				alert(1);
+				
+			});
+		
+		</script>
+		
 		
 		<!-- 댓글 등록 -->
 		<script type="text/javascript">
