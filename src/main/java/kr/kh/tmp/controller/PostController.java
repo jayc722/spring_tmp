@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.kh.tmp.dao.MemberDAO;
 import kr.kh.tmp.model.vo.BoardVO;
 import kr.kh.tmp.model.vo.FileVO;
 import kr.kh.tmp.model.vo.LikeVO;
@@ -23,6 +24,7 @@ import kr.kh.tmp.model.vo.MemberVO;
 import kr.kh.tmp.model.vo.PostVO;
 import kr.kh.tmp.pagination.PageMaker;
 import kr.kh.tmp.pagination.PostCriteria;
+import kr.kh.tmp.service.MemberService;
 import kr.kh.tmp.service.PostService;
 import kr.kh.tmp.service.PostServiceImp;
 
@@ -33,7 +35,9 @@ public class PostController {
 	@Autowired
 	private PostService postService;
 	
-
+	@Autowired
+	private MemberService memberService;
+	
 
 	
 	@GetMapping("/list")
@@ -152,11 +156,21 @@ public class PostController {
 	
 	@ResponseBody
 	@PostMapping("/like")
-	public int like(Model model, @RequestBody LikeVO like) {
+	public int like(Model model, @RequestBody LikeVO like, HttpSession session) {
 		
-		System.out.println(like);
+		//System.out.println(like);
+		MemberVO user = (MemberVO)session.getAttribute("user");
 		
-		return 0;
+		//System.out.println(user);
+		if(like==null||user==null)return 2;
+		
+		MemberVO member = memberService.selectMember(user.getMe_id());
+		
+		if(member==null) return 2;
+		
+		like.setLi_me_id(member.getMe_id());
+		
+		return postService.selectLike(like);
 	}
 	
 	

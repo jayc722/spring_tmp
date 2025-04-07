@@ -62,6 +62,12 @@ public class MemberServiceImp implements MemberService {
 		MemberVO user = memberDAO.selectMember(id);
 		return user == null;	// true면 null(없는 아이디->사용 가능)
 	}
+
+	@Override
+	public MemberVO selectMember(String me_id) {
+		// TODO Auto-generated method stub
+		return memberDAO.selectMember(me_id);
+	}
 		
 }
 
