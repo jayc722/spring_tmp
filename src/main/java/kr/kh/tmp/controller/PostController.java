@@ -160,7 +160,7 @@ public class PostController {
 		
 		//System.out.println(like);
 		MemberVO user = (MemberVO)session.getAttribute("user");
-		
+		/*
 		//System.out.println(user);
 		if(like==null||user==null)return 2;
 		
@@ -169,8 +169,8 @@ public class PostController {
 		if(member==null) return 2;
 		
 		like.setLi_me_id(member.getMe_id());
-		
-		return postService.selectLike(like);
+		*/
+		return postService.updateLike(like, user);
 	}
 	
 	

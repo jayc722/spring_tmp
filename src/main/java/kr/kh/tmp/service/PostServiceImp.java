@@ -198,13 +198,25 @@ public class PostServiceImp implements PostService {
 		return new PageMaker(3, cri, totalCount);
 	}
 
+	/*
 	@Override
 	public int selectLike(LikeVO like) {
 		
-		LikeVO dbLike = PostDAO.selectLike(like);
+		LikeVO dbLike = postDao.selectLike(like);
 		if(dbLike == null) return 2;
 		
 		return dbLike.getLi_state();
+	}*/
+
+	@Override
+	public int updateLike(LikeVO like, MemberVO user) {
+		if(like == null/* || user == null*/) return -2; //오류 발생 시 -2 리턴
+		
+		//LikeVO dbLike = postDao.selectLike(like.getLi_po_num(), user.getMe_id());
+		LikeVO dbLike = postDao.selectLike(like.getLi_po_num(), "123");
+		System.out.println(dbLike);
+		
+		return 0;
 	}
 	
 	
