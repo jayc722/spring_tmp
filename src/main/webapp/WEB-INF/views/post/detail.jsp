@@ -79,6 +79,13 @@
 		<!-- 추천 -->
 		<script type="text/javascript">
 			$(document).on("click", ".btn-up, .btn-down", function(e){
+				
+				if('${user.me_id}' == ''){
+					alert("로그인이 필요한 서비스입니다.");
+					return;
+				}
+				
+				
 				let num = $(this).data("num");
 				let state = $(this).data("state");
 				//alert(${post.po_num});
@@ -108,11 +115,11 @@
 						case 0:
 							alert((state == 1 ? "추천" : "비추천") + " 취소");
 						}
+						location.reload();
 					} 
 					/*, error : function(jqXHR, textStatus, errorThrown){
 
 					}*/
-					location.reload();
 				});
 				
 				

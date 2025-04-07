@@ -231,7 +231,7 @@ public class PostServiceImp implements PostService {
 		}
 		
 		
-			postDao.updateLike(dbLike.getLi_num(), like.getLi_state());
+		postDao.updateLike(dbLike.getLi_num(), like.getLi_state());
 			//postDao.updateLike(like.getLi_po_num(), like.getLi_state(),  "123");
 
 
