@@ -146,7 +146,7 @@
 	</insert>
 	
 	<update id="updateLike">
-		update `like` set li_state = #{li_state} where li_po_num = #{li_po_num} and li_me_id = #{li_me_id} 
+		update `like` set li_state = #{li_state} where li_num = #{li_num} 
 	</update>
 	
 	

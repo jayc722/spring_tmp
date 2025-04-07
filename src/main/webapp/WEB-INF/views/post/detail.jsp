@@ -97,11 +97,16 @@
 					contentType : "application/json; charset=utf-8",	
 					//dataType : "json",								 
 					success : function (data){
-						if(data){
-							console.log(data);
 
-						}else{
-						
+						switch(data){
+						case 1:
+							alert("추천");
+							break;
+						case -1:
+							alert("비추천");
+							break;
+						case 0:
+							alert((state == 1 ? "추천" : "비추천") + " 취소");
 						}
 					} 
 					/*, error : function(jqXHR, textStatus, errorThrown){
