@@ -46,10 +46,13 @@ public interface PostDAO {
 
 	LikeVO selectLike(@Param("li_po_num")int li_po_num, @Param("li_me_id")String li_me_id);
 
-	void insertLike(@Param("like")LikeVO like);
+	//void insertLike(@Param("like")LikeVO like);
 
-	void updateLike(@Param("like")LikeVO like);
+	//void updateLike(@Param("like")LikeVO like);
+
+	void insertLike(@Param("li_po_num")int li_po_num, @Param("li_state")int li_state, @Param("li_me_id")String li_me_id);
 	
+	void updateLike(@Param("li_po_num")int li_po_num, @Param("li_state")int li_state, @Param("li_me_id")String li_me_id);
 	
 
 	

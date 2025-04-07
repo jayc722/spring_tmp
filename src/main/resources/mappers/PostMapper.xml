@@ -142,11 +142,11 @@
 	</select>
 	
 	<insert id="insertLike">
-		insert into like(li_me_id, li_po_num, li_state) values#{like.li_me_id}, #{like.li_po_num}, #{like.li_state})
+		insert into `like`(li_me_id, li_po_num, li_state) values (#{li_me_id}, #{li_po_num}, #{li_state})
 	</insert>
 	
 	<update id="updateLike">
-		update like set li_state = #{like.li_state} where li_po_num = #{like.li_po_num} and li_me_id = #{like.li_me_id} 
+		update `like` set li_state = #{li_state} where li_po_num = #{li_po_num} and li_me_id = #{li_me_id} 
 	</update>
 	
 	
