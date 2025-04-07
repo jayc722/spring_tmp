@@ -78,8 +78,8 @@
 		
 		<!-- 추천 -->
 		<script type="text/javascript">
-			$(document).on("click", ".btn-up, btn-down", function(e){
-				alert(1);
+			$(document).on("click", ".btn-up, .btn-down", function(e){
+				alert(${post.po_num});
 				
 			});
 		
